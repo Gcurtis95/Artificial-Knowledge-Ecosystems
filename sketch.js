@@ -28,7 +28,7 @@ function setup() {
   submit.mousePressed(newText);
 
   input = createFileInput(loadFile);
-  input.position(windowWidth/1.5,50);
+  input.position(windowWidth/1.2,50);
 
 
 }
@@ -36,7 +36,7 @@ function setup() {
 function loadFile(file)
 {
   
-  loadImage(file.data, fileLoaded);
+  loadImage(file.data, fileLoaded);     //callback function to load image
   
   
 
@@ -44,7 +44,7 @@ function loadFile(file)
 
 }
 
-function fileLoaded(data)
+function fileLoaded(data)     //function to load image into pictures array
 {
   let img = data;
   if (pictures.length === 0)
@@ -61,7 +61,7 @@ function fileLoaded(data)
 
 
 
-function newText()
+function newText()   // this function takes the text input and adds it to the textArray
 {
   p = textfield.value();
   t = title.value();
@@ -95,14 +95,14 @@ function draw() {
   for (i = 0; i < pictures.length; i ++)
   {
       
-    pictures[i].show();
+    pictures[i].show();                        // Loop to draw Image
     
       
   }
 
   if(TextArray.length !== 0)
   {
-    for(i = 0; i < TextArray.length; i++)
+    for(i = 0; i < TextArray.length; i++)     //Loop to draw text by calling 
     {
       TextArray[i].show();
     }
@@ -118,13 +118,13 @@ function draw() {
 
 
 
-function Drawline()
+function Drawline()  // function to drawlines from each related text and image
 {
   for (let i = 0; i < pictures.length; i++) {
     
     for (let j = i + 1; j < pictures.length; j++) { // Start from i+1 to avoid duplicates
-      strokeWeight(0.5);
-      stroke(126)
+      strokeWeight(0.3);
+      stroke(150)
       line(pictures[i].x + pictures[i].w / 2, pictures[i].y + pictures[i].h / 2,
            pictures[j].x + pictures[j].w / 2, pictures[j].y + pictures[j].h / 2);
     }
@@ -133,9 +133,8 @@ function Drawline()
   for (let i = 0; i < TextArray.length; i++) {
     
     for (let j = 0; j < pictures.length; j++) { 
-      strokeWeight(0.5);
-      stroke(126)
-
+      strokeWeight(0.3);
+      stroke(150)
       line(TextArray[i].posX + TextArray[i].w/2, TextArray[i].posY + TextArray[i].h/2,
            pictures[j].x + pictures[j].w / 2, pictures[j].y + pictures[j].h / 2);
     }
@@ -152,7 +151,6 @@ function mouseReleased()
 
 function mouseDragged()
 {
-
   if(shouldImageMove)
   {
     for (i = 0; i < pictures.length; i++)
@@ -160,16 +158,9 @@ function mouseDragged()
       pictures[i].dragged();
       if(draggingImage)
       {
-        
-        break;
-        
- 
-        
-      }
-        
-    }
-    
-    
+        break; 
+      }    
+    } 
   }
   draggingImage = false;
 
@@ -180,17 +171,11 @@ function mouseDragged()
       TextArray[i].dragged();
       if(draggingWriting)
       {
-        
-        break;
-        
-          
+        break;    
       }
-    }
-    
-    
+    }  
   }
-  draggingWriting = false;
-  
+  draggingWriting = false;  
 }
 
 
@@ -267,8 +252,6 @@ class Writing
     console.log(mouseX);
     console.log(mouseY);
     text(`${this.txt.title}: ${this.txt.paragraph}`, this.posX, this.posY,this.w, this.h);
-
-
   }
     
 }
